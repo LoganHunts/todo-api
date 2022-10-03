@@ -1,7 +1,6 @@
 const express    = require("express");
 const userRouter = express.Router();
 const { check, validationResult } = require("express-validator");
-// const { unique }                  = require("./../../services/helper");
 const { getUser, createNewUser, deleteUser, updateUser }  = require("./../../models/user/user.model");
 
 //Get request for via session user / token / id.
@@ -51,7 +50,6 @@ userRouter.post("/", async (req, res, next) => {
 			delete current.location;
 			return current;
 		});
-		errors.filter(unique);
 		return res.status(400).json({ errors: errors });
 	}
 
