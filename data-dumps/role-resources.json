@@ -1,0 +1,10 @@
+[{
+  "role": "admin",
+  "access": "all"
+},{
+  "role": "customer",
+  "access": "frontend"
+},{
+  "role": "anonymus",
+  "access": "none"
+}]

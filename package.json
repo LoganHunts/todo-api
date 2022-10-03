@@ -1,0 +1,40 @@
+{
+    "dependencies": {
+      "body-parser": "^1.20.0",
+      "chalk": "^5.0.1",
+      "cookie-parser": "^1.4.6",
+      "dotenv": "^16.0.2",
+      "express": "^4.18.1",
+      "express-session": "^1.17.3",
+      "express-validator": "^6.14.2",
+      "figlet": "^1.5.2",
+      "gradient-string": "^2.0.2",
+      "inquirer": "^9.1.1",
+      "jsonwebtoken": "^8.5.1",
+      "mongo": "^0.1.0",
+      "mongoose": "^6.6.1",
+      "nodemon": "^2.0.20"
+    },
+    "name": "todo-api",
+    "description": "<h1 align=\"center\">Hi 👋, I'm Ashutosh Verma</h1>\r <h3 align=\"center\">A passionate developer from India</h3>",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon index.js"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/LoganHunts/todo-api.git"
+    },
+    "keywords": [
+      "todo-api"
+    ],
+    "author": "Ashutosh Verma",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/LoganHunts/todo-api/issues"
+    },
+    "homepage": "https://github.com/LoganHunts/todo-api#readme"
+  }
+  
