@@ -27,7 +27,8 @@ const createNewUser = async ( body ) => {
         User.create(user);
         return {
             success : true,
-            message : 'User created successfully.'
+            message : 'User created successfully.',
+            id      : user._id.toString()
         };
     } catch (error) {
         return {
@@ -44,6 +45,8 @@ const getUser = async ( params, returnType = 'bool' ) => {
             { 'email': params.email || '' },
             { 'username': params.username || '' } 
         ]
+    },{
+        '__v' : 0
     });
 
     if ( returnType === 'bool' )  return user ? true : false;

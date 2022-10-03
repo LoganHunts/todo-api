@@ -2,22 +2,12 @@ const express    = require("express");
 const userRouter = express.Router();
 const { check, validationResult } = require("express-validator");
 // const { unique }                  = require("./../../services/helper");
-// const { getUser, createNewUser, deleteUser, updateUser }  = require("./../../models/user/user.model");
+const { getUser, createNewUser, deleteUser, updateUser }  = require("./../../models/user/user.model");
 
 //Get request for via session user / token / id.
 userRouter.get("/:id", (req, res) => {
-	const headers = req.headers;
 	const params  = req.params;
 	const id      = params.id || false;
-	const auth    = headers['authorization'] || false;
-
-	if (false === auth) {
-		return res.status(403).json({
-			success: false,
-			message: "Base Authentication token not found in session. Please login first or add bearer token in request.",
-			auth: auth,
-		});
-	}
 
 	if( !id ) {
 		return res.status(200).json({
@@ -40,10 +30,15 @@ userRouter.get("/:id", (req, res) => {
                 message: "User not Found."
             });
         }
-    });
+    }).catch( (err) => {
+		return res.status(500).json({
+			success: false,
+			message: err.message
+		});
+	} );
 });
 
-userRouter.post("/create", async (req, res, next) => {
+userRouter.post("/", async (req, res, next) => {
 	await check("email").exists().isEmail().bail().run(req);
 	await check("password").isLength({ min: 7 }).run(req);
 
@@ -61,7 +56,7 @@ userRouter.post("/create", async (req, res, next) => {
 	}
 
 	// Check if users exists.
-    getUser( req.body ).then( ( result ) => {
+    getUser( req.body ).then( async ( result ) => {
         if ( true === result ) {
             return res.status(201).json({
                 success: false,
@@ -69,15 +64,25 @@ userRouter.post("/create", async (req, res, next) => {
             });
         } else {
             // Create new.
-			createNewUser( req.body ).then( ( result ) => {
-				return res.status(201).json(result);
+			let result = await createNewUser( req.body ).then( ( result ) => {
+				return res.status(200).json(result);
+			}).catch( (err) => {
+				return res.status(500).json({
+					success: false,
+					message: err.message
+				});
 			});
         }
-    });
+    }).catch( (err) => {
+		return res.status(500).json({
+			success: false,
+			message: err.message
+		});
+	});
 });
 
 // Delete user.
-userRouter.delete("/delete/:id", async (req, res) => {
+userRouter.delete("/:id", async (req, res) => {
 	const params = req.params;
 	await check("id").exists().run(params);
 	const result = validationResult(req);
@@ -99,11 +104,16 @@ userRouter.delete("/delete/:id", async (req, res) => {
                 message: "User deletion Failed."
             });
         }
-    });
+    }).catch( (err) => {
+		return res.status(500).json({
+			success: false,
+			message: err.message
+		});
+	} );
 });
 
 // Update user.
-userRouter.put("/update/:id", async (req, res) => {
+userRouter.put("/:id", async (req, res) => {
 	const params = req.params;
 	const body   = req.body;
 	await check('id').exists().run(params);

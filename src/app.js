@@ -30,21 +30,7 @@ app.use('/v1',(req, res, next) => {
     });
 });
 
-// Do security auth for request owner check.
-app.use('/v1',(req, res, next) => {
-    let err     = false;
-    let method  = req.method;
-
-    // Move further.
-    if ( false === err ) next();
-    else return res.status(401).json({
-        success : false,
-        error: 'Bad Request.',
-        middleware : 2
-    });
-});
-
-app.use('/v1',api);
+app.use( '/v1', api );
 
 // Restrict and block other urls.
 app.get( '/*', (req, res) => {
