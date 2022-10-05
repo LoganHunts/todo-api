@@ -33,12 +33,12 @@ app.use('/v1',(req, res, next) => {
 app.use( '/v1', api );
 
 // Restrict and block other urls.
-app.get( '/*', (req, res) => {
-    // In case of json.
-    return res.status(404).json({
-        success : false,
-        error: 'Opps!! We did not anticipated you landing here.'
-    });
-});
+// app.get( '/*', (req, res) => {
+//     // In case of json.
+//     return res.status(404).json({
+//         success : false,
+//         error: 'Opps!! We did not anticipated you landing here.'
+//     });
+// });
 
 module.exports = app;
